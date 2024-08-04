@@ -1,10 +1,9 @@
 package com.MASalmanss.writers_club.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -13,6 +12,8 @@ import java.util.Date;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Page {
 
     @Id
@@ -32,5 +33,9 @@ public class Page {
     private Boolean isComplicated;
 
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 
 }

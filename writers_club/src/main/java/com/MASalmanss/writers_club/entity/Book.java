@@ -1,15 +1,13 @@
 package com.MASalmanss.writers_club.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -36,5 +34,9 @@ public class Book {
     private Long pageSize;
 
     private Boolean isComplicated;
+
+
+    @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL)
+    private List<Page> pages;
 
 }
