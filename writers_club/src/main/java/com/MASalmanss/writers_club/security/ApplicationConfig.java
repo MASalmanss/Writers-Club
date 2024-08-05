@@ -16,20 +16,21 @@ public class ApplicationConfig {
     private UserRepository userRepository;
 
     @Bean
-    public UserDetailsService userDetailsService(){
-        return username ->  userRepository.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("Username not found !"));
+    UserDetailsService userDetailsService(){
+        return user -> userRepository.findByEmail(user).orElseThrow(()-> new UsernameNotFoundException("user not found"));
     }
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     AuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return daoAuthenticationProvider;
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        return authenticationProvider;
     }
+
 }
