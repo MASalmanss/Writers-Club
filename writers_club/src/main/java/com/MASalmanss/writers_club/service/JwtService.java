@@ -27,6 +27,9 @@ public class JwtService {
     public String generateToken(HashMap<String , Objects> extraClaims , UserDetails userDetails){
         return buildToken(extraClaims , userDetails , jwtExpiration);
     }
+    public Long getExpiration(){
+        return jwtExpiration;
+    }
 
 
     private String buildToken(Map<String , Objects> extraClaims , UserDetails userDetails , long jwtExpiration){
