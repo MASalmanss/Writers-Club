@@ -39,6 +39,10 @@ public class AuthenticationService {
         Optional<User> user = userRepository.findByEmail(loginUserDto.email());
         if(user.isPresent()){
             if(passwordEncoder.matches(loginUserDto.password(), user.get().getPassword())){
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                        loginUserDto.email(),
+                        loginUserDto.password()
+                ));
                 return user.get();
             }
         }
