@@ -5,23 +5,33 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     private final HandlerExceptionResolver exceptionResolver;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+
+    public JwtAuthenticationFilter(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver exceptionResolver, JwtService jwtService, UserDetailsService userDetailsService) {
+        this.exceptionResolver = exceptionResolver;
+        this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
+    }
 
 
     @Override
@@ -29,6 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String autheader = request.getHeader("Authorization");
         if(autheader == null || !autheader.startsWith("Bearer ")){
             filterChain.doFilter(request , response);
+            return;
         }
         try {
             final String jwt = autheader.substring(7);
@@ -49,5 +60,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }catch (Exception exception){
             exceptionResolver.resolveException(request , response , null , exception);
         }
+        filterChain.doFilter(request, response);
     }
 }
