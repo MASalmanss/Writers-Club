@@ -1,5 +1,6 @@
 package com.MASalmanss.writers_club.service.abstracks;
 
+import com.MASalmanss.writers_club.dto.bookDtos.ThemeDto;
 import com.MASalmanss.writers_club.entity.Theme;
 
 import java.util.List;
@@ -7,6 +8,6 @@ import java.util.List;
 public interface ThemeService {
     Theme findById(Long id);
     List<Theme> findAll();
-    Theme save(Theme theme);
-    void deleteById(Theme theme);
+    Theme save(ThemeDto themeDto);
+    void deleteById(Long id);
 }

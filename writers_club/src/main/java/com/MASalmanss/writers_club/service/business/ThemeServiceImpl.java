@@ -1,8 +1,10 @@
 package com.MASalmanss.writers_club.service.business;
 
+import com.MASalmanss.writers_club.dto.bookDtos.ThemeDto;
 import com.MASalmanss.writers_club.entity.Theme;
 import com.MASalmanss.writers_club.repository.ThemeRepository;
 import com.MASalmanss.writers_club.service.abstracks.ThemeService;
+import com.MASalmanss.writers_club.utils.mappers.ThemeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ThemeServiceImpl implements ThemeService {
     private final ThemeRepository themeRepository;
+    private final ThemeMapper themeMapper;
 
     @Override
     public Theme findById(Long id) {
@@ -24,12 +27,13 @@ public class ThemeServiceImpl implements ThemeService {
     }
 
     @Override
-    public Theme save(Theme theme) {
-        return null;
+    public Theme save(ThemeDto themeDto) {
+        Theme theme = themeMapper.ThemeDtoToTheme(themeDto);
+        return themeRepository.save(theme);
     }
 
     @Override
-    public void deleteById(Theme theme) {
-
+    public void deleteById(Long id) {
+        themeRepository.deleteById(id);
     }
 }

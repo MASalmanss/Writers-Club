@@ -23,6 +23,7 @@ public class Book {
 
     private String description;
 
+    private Long admin_id;
 
     @CreationTimestamp
     private Date createdTime;

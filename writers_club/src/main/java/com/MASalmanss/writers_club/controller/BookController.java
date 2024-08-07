@@ -31,8 +31,8 @@ public class BookController {
 
     @PostMapping("")
     public Book createBook(@Valid @RequestBody BookDto bookDto) {
-        Book book = bookMapper.BookDtoToBook(bookDto);
-        return bookService.save(book);
+
+        return bookService.save(bookDto);
     }
 
     @PutMapping("/{id}")
@@ -40,6 +40,6 @@ public class BookController {
         Book book = bookService.getById(id);
         book.setDescription(bookDto.description());
         book.setTitle(bookDto.title());
-        return bookService.save(book);
+        return bookService.save(bookDto);
     }
 }

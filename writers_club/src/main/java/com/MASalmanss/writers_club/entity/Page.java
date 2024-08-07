@@ -2,6 +2,7 @@ package com.MASalmanss.writers_club.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Page {
 
     @Id
@@ -44,6 +46,5 @@ public class Page {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private Long admin_id;
 
 }
