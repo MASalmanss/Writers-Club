@@ -39,6 +39,13 @@ public class User implements UserDetails {
     @Column(updatable = false , name = "created_at")
     private Date createdAt;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "book_id")
+    private Book booke;
+
+    @OneToOne(mappedBy = "user")
+    private Page page;
+
     @OneToOne(fetch = FetchType.EAGER , cascade = CascadeType.REMOVE)
     @JoinColumn(name = "role_id" , referencedColumnName = "id" , nullable = false)
     private Role role;
@@ -52,7 +59,6 @@ public class User implements UserDetails {
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_" + role.getName().toString());
         return List.of(simpleGrantedAuthority);
     }
-
 
 
 

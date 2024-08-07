@@ -35,6 +35,8 @@ public class Book {
 
     private Boolean isComplicated;
 
+    @OneToMany(mappedBy = "booke" , cascade = CascadeType.ALL)
+    private List<User> users;
 
     @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL)
     private List<Page> pages;

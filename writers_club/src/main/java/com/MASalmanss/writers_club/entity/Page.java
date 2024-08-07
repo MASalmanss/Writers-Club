@@ -32,10 +32,18 @@ public class Page {
 
     private Boolean isComplicated;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private Long admin_id;
 
 }

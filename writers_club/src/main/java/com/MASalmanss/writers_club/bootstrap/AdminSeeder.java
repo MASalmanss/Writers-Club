@@ -7,7 +7,9 @@ import com.MASalmanss.writers_club.repository.UserRepository;
 import com.MASalmanss.writers_club.utils.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+@Order(2)
 public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
@@ -24,7 +27,7 @@ public class AdminSeeder implements ApplicationListener<ContextRefreshedEvent> {
     public void onApplicationEvent(ContextRefreshedEvent event) {
         loadAdmin();
     }
-    private void loadAdmin(){
+    public void loadAdmin(){
         try {
 
             Optional<User> userOptional = userRepository.findByEmail("admin@admin.com");
