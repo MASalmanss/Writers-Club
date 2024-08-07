@@ -1,7 +1,10 @@
 package com.MASalmanss.writers_club.controller;
 
+import com.MASalmanss.writers_club.dto.bookDtos.BookDto;
 import com.MASalmanss.writers_club.entity.Book;
 import com.MASalmanss.writers_club.service.abstracks.BookService;
+import com.MASalmanss.writers_club.utils.mappers.BookMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,7 @@ import java.util.List;
 @PreAuthorize("hasAnyRole('ADMIN' , 'SUPER_ADMIN')")
 public class BookController {
     private final BookService bookService;
+    private final BookMapper bookMapper;
 
     @GetMapping("")
     public List<Book> getAllBooks() {
@@ -26,12 +30,16 @@ public class BookController {
     }
 
     @PostMapping("")
-    public Book createBook(@RequestBody Book book) {
+    public Book createBook(@Valid @RequestBody BookDto bookDto) {
+        Book book = bookMapper.BookDtoToBook(bookDto);
         return bookService.save(book);
     }
 
-    @PutMapping("")
-    public Book updateBook(@RequestBody Book book) {
+    @PutMapping("/{id}")
+    public Book updateBook(@Valid @RequestBody BookDto bookDto , @PathVariable Long id) {
+        Book book = bookService.getById(id);
+        book.setDescription(bookDto.description());
+        book.setTitle(bookDto.title());
         return bookService.save(book);
     }
 }

@@ -1,5 +1,12 @@
 package com.MASalmanss.writers_club.dto.bookDtos;
 
-public record BookDto(String title ,  String description ,  Long pageSize ,  Boolean isComplicated )
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+public record BookDto(
+        @NotNull String title
+        ,@NotNull String description
+        ,@NotNull Long pageSize
+        ,@NotNull Boolean isComplicated )
 {
 }

@@ -30,6 +30,7 @@ public class Book {
     @UpdateTimestamp
     private Date updatedTime;
 
+    @Column(updatable = false)
     private Long pageSize;
 
     private Boolean isComplicated;
