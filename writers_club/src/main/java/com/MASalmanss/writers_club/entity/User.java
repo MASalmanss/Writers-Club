@@ -39,7 +39,7 @@ public class User implements UserDetails {
     @Column(updatable = false , name = "created_at")
     private Date createdAt;
 
-    @OneToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER , cascade = CascadeType.REMOVE)
     @JoinColumn(name = "role_id" , referencedColumnName = "id" , nullable = false)
     private Role role;
 

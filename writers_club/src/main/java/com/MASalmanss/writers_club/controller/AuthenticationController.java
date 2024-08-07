@@ -1,13 +1,12 @@
 package com.MASalmanss.writers_club.controller;
 
 
-import com.MASalmanss.writers_club.dto.LoginResponse;
-import com.MASalmanss.writers_club.dto.LoginUserDto;
-import com.MASalmanss.writers_club.dto.RegisterUserDto;
+import com.MASalmanss.writers_club.dto.authDtos.LoginResponse;
+import com.MASalmanss.writers_club.dto.authDtos.LoginUserDto;
+import com.MASalmanss.writers_club.dto.authDtos.RegisterUserDto;
 import com.MASalmanss.writers_club.entity.User;
-import com.MASalmanss.writers_club.repository.UserRepository;
-import com.MASalmanss.writers_club.service.AuthenticationService;
-import com.MASalmanss.writers_club.service.JwtService;
+import com.MASalmanss.writers_club.service.business.AuthenticationService;
+import com.MASalmanss.writers_club.service.business.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

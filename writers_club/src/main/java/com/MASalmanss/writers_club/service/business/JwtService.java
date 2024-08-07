@@ -1,4 +1,4 @@
-package com.MASalmanss.writers_club.service;
+package com.MASalmanss.writers_club.service.business;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

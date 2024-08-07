@@ -1,7 +1,7 @@
-package com.MASalmanss.writers_club.service;
+package com.MASalmanss.writers_club.service.business;
 
-import com.MASalmanss.writers_club.dto.LoginUserDto;
-import com.MASalmanss.writers_club.dto.RegisterUserDto;
+import com.MASalmanss.writers_club.dto.authDtos.LoginUserDto;
+import com.MASalmanss.writers_club.dto.authDtos.RegisterUserDto;
 import com.MASalmanss.writers_club.entity.User;
 import com.MASalmanss.writers_club.repository.RoleRepository;
 import com.MASalmanss.writers_club.repository.UserRepository;

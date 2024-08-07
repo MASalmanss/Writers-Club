@@ -1,6 +1,6 @@
 package com.MASalmanss.writers_club.security;
 
-import com.MASalmanss.writers_club.service.JwtService;
+import com.MASalmanss.writers_club.service.business.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

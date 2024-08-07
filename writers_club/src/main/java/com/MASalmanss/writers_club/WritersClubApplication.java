@@ -17,19 +17,7 @@ public class WritersClubApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(BookRepository bookRepository){
 		return result ->{
-			Book book = Book.builder()
-					.title("akifin kitabı")
-					.content("bir gün zenci")
-					.pageSize(231L)
-					.isComplicated(true)
-					.description("güzel")
-					.build();
 
-			bookRepository.save(book);
-
-			Thread.sleep(3000);
-			book.setContent("sgahjska");
-			bookRepository.save(book);
 		};
 	}
 

@@ -1,4 +1,4 @@
-package com.MASalmanss.writers_club.dto;
+package com.MASalmanss.writers_club.dto.authDtos;
 
 import lombok.Builder;
 

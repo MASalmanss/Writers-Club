@@ -23,7 +23,6 @@ public class Book {
 
     private String description;
 
-    private String content;
 
     @CreationTimestamp
     private Date createdTime;
@@ -38,5 +37,10 @@ public class Book {
 
     @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL)
     private List<Page> pages;
+
+    @OneToOne
+    @JoinColumn(name = "theme_id" ,referencedColumnName = "id")
+    private Theme theme;
+
 
 }
