@@ -5,6 +5,7 @@ import com.MASalmanss.writers_club.entity.Book;
 import com.MASalmanss.writers_club.entity.Page;
 import com.MASalmanss.writers_club.repository.BookRepository;
 import com.MASalmanss.writers_club.repository.PageRepository;
+import com.MASalmanss.writers_club.repository.ThemeRepository;
 import com.MASalmanss.writers_club.service.abstracks.BookService;
 import com.MASalmanss.writers_club.utils.mappers.BookMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,15 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
     private final PageRepository pageRepository;
     private final UserDetailsService userDetailsService;
+    private final ThemeRepository themeRepository;
     @Override
     public Book save(BookDto bookDto) {
         Book book = bookMapper.BookDtoToBook(bookDto);
         Long pagesize = book.getPageSize();
         book.setAdmin_id(bookDto.admin_id());
+
+        book.setTheme(themeRepository.findById(bookDto.admin_id()).orElseThrow());
+
         bookRepository.save(book);
         for (int i = 0 ; i < pagesize ; i++) {
             Page page = Page.builder()

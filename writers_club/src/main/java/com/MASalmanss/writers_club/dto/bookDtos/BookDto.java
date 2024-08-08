@@ -7,6 +7,8 @@ public record BookDto(
         ,@NotNull String description
         ,@NotNull Long pageSize
         ,@NotNull Boolean isComplicated
-        ,@NotNull Long admin_id)
+        ,@NotNull Long admin_id
+        ,@NotNull Long theme_id
+)
 {
 }

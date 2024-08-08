@@ -10,4 +10,5 @@ public interface ThemeService {
     List<Theme> findAll();
     Theme save(ThemeDto themeDto);
     void deleteById(Long id);
+    Theme update(ThemeDto themeDto , Long id);
 }

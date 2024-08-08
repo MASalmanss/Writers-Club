@@ -36,4 +36,14 @@ public class ThemeServiceImpl implements ThemeService {
     public void deleteById(Long id) {
         themeRepository.deleteById(id);
     }
+
+    @Override
+    public Theme update(ThemeDto themeDto, Long id) {
+        Theme theme = themeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Theme not found"));
+        theme.setDescription(themeDto.description());
+        theme.setTitle(themeDto.title());
+        return themeRepository.save(theme);
+    }
+
+
 }
