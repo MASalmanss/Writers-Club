@@ -36,10 +36,10 @@ public class Book {
 
     private Boolean isComplicated;
 
-    @OneToMany(mappedBy = "booke" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "booke" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<User> users;
 
-    @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book" , cascade = CascadeType.ALL , fetch = FetchType.EAGER)
     private List<Page> pages;
 
     @OneToOne
