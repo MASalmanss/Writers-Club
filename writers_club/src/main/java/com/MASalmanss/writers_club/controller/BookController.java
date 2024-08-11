@@ -14,10 +14,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('ADMIN' , 'SUPER_ADMIN')")
+//@PreAuthorize("hasAnyRole('ADMIN' , 'SUPER_ADMIN')")
 @Slf4j
 public class BookController {
     private final BookService bookService;
@@ -35,7 +31,7 @@ public class BookController {
     private final PageService pageService;
 
     @GetMapping("")
-    public List<Book> getAllBooks() {
+    public List<BookDto> getAllBooks() {
         return bookService.getAll();
     }
 
@@ -66,7 +62,8 @@ public class BookController {
         for (Page page : pages) {
             if(page.getUser() == null){
                 page.setUser(user);
-                pageService.save(page);
+                page.setBook(book);
+                pageService.save(pageMapper.pageToPageDto(page));
             }
             break;
         }

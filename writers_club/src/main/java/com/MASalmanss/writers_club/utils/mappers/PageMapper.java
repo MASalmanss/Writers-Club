@@ -15,4 +15,6 @@ public interface PageMapper {
     PageDto pageToPageDto(Page page);
 
     List<PageDto> pageToPageDto(List<Page> pages);
+
+    Page pageDtoToPage(PageDto pageDto);
 }

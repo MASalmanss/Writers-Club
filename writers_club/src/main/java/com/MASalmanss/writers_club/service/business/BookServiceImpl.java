@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
@@ -22,36 +23,52 @@ public class BookServiceImpl implements BookService {
     private final PageRepository pageRepository;
     private final UserDetailsService userDetailsService;
     private final ThemeRepository themeRepository;
+
     @Override
     public Book save(BookDto bookDto) {
         Book book = bookMapper.BookDtoToBook(bookDto);
-        Long pagesize = book.getPageSize();
-        book.setAdmin_id(bookDto.admin_id());
 
-        book.setTheme(themeRepository.findById(bookDto.admin_id()).orElseThrow());
+        // ID ve tema ID kontrolü
+        Long adminId = bookDto.admin_id();
+        Long themeId = bookDto.theme_id();
 
-        bookRepository.save(book);
-        for (int i = 0 ; i < pagesize ; i++) {
-            Page page = Page.builder()
-                    .title("Page " + i )
-                    .isComplicated(false)
-                    .book(book)
-                    .build();
-            pageRepository.save(page);
+        book.setAdmin_id(adminId);
+        book.setTheme(themeRepository.findById(themeId)
+                .orElseThrow(() -> new IllegalArgumentException("Theme not found")));
+
+        try {
+            // Kitabı veritabanına kaydet
+            book = bookRepository.save(book);
+
+            // Sayfaları ekle
+            Long pageSize = book.getPageSize();
+            for (int i = 0; i < pageSize; i++) {
+                Page page = Page.builder()
+                        .title("Page " + i)
+                        .isComplicated(false)
+                        .book(book)
+                        .build();
+                pageRepository.save(page);
+            }
+        } catch (Exception e) {
+            // Hata yönetimi
+            e.printStackTrace();
+            throw new RuntimeException("Kitap eklenirken bir hata oluştu.");
         }
+
         return book;
     }
 
     @Override
     public Book getById(Long bookId) {
-        return bookRepository.findById(bookId).orElseThrow(()-> new IllegalArgumentException("Book not found"));
+        return bookRepository.findById(bookId)
+                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
     }
 
     @Override
-    public List<Book> getAll() {
-        return bookRepository.findAll();
+    public List<BookDto> getAll() {
+        return bookMapper.BooksToBookDto(bookRepository.findAll());
     }
-
 
     @Override
     public void delete(Book book) {
@@ -60,6 +77,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book update(Book book) {
-        return null;
+        // Kitap güncelleme işlemleri burada yapılmalıdır
+        // Güncellenen kitabı veritabanına kaydet
+        return bookRepository.save(book);
     }
 }

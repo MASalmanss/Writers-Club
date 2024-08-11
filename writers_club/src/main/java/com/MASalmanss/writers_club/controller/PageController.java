@@ -6,6 +6,7 @@ import com.MASalmanss.writers_club.service.abstracks.PageService;
 import com.MASalmanss.writers_club.utils.mappers.PageMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/pages")
-@PreAuthorize("hasAnyRole('ADMIN' , 'SUPER_ADMIN')")
+@PreAuthorize("hasAnyRole('ADMIN' , 'SUPER_ADMIN' , 'USER')")
 @RequiredArgsConstructor
 @Slf4j
 public class PageController {
@@ -22,7 +23,7 @@ public class PageController {
 
     @PostMapping("")
     public void createPage(@RequestBody PageDto pageDto) {
-        log.info(pageDto.toString());
+        pageService.save(pageDto);
     }
 
     @GetMapping("")
@@ -36,5 +37,9 @@ public class PageController {
         return null;
     }
 
+    @PutMapping("/{id}")
+    public PageDto updatePage(@PathVariable Long id, @RequestBody PageDto pageDto) throws BadRequestException {
+       return pageService.update(pageDto , id);
+    }
 
 }

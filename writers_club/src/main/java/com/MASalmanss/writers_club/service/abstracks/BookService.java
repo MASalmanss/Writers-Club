@@ -8,7 +8,7 @@ import java.util.List;
 public interface BookService {
     public Book save(BookDto book);
     public Book getById(Long bookId);
-    public List<Book> getAll();
+    public List<BookDto> getAll();
     public void delete(Book book);
     Book update(Book book);
 }
