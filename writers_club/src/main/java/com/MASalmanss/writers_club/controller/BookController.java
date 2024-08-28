@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
-//@PreAuthorize("hasAnyRole('ADMIN' , 'SUPER_ADMIN')")
+@PreAuthorize("hasAnyRole('ADMIN' , 'SUPER_ADMIN')")
 @Slf4j
 public class BookController {
     private final BookService bookService;
@@ -40,7 +40,7 @@ public class BookController {
         return bookService.getById(id);
     }
 
-    @PostMapping("")
+    @PostMapping("/save")
     public Book createBook(@Valid @RequestBody BookDto bookDto) {
 
         return bookService.save(bookDto);

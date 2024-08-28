@@ -37,10 +37,8 @@ public class BookServiceImpl implements BookService {
                 .orElseThrow(() -> new IllegalArgumentException("Theme not found")));
 
         try {
-            // Kitabı veritabanına kaydet
             book = bookRepository.save(book);
 
-            // Sayfaları ekle
             Long pageSize = book.getPageSize();
             for (int i = 0; i < pageSize; i++) {
                 Page page = Page.builder()
@@ -51,7 +49,6 @@ public class BookServiceImpl implements BookService {
                 pageRepository.save(page);
             }
         } catch (Exception e) {
-            // Hata yönetimi
             e.printStackTrace();
             throw new RuntimeException("Kitap eklenirken bir hata oluştu.");
         }

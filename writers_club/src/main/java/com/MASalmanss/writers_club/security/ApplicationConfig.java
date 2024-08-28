@@ -40,4 +40,5 @@ public class ApplicationConfig {
         return authenticationProvider;
     }
 
+
 }

@@ -45,6 +45,7 @@ public class PageServiceImpl implements PageService {
             throw new BadRequestException("Complicated Page");
         }
         else {
+            var contentReview = pageDto.content();
             page.setContent(pageDto.content());
             pageRepository.save(page);
             return pageMapper.pageToPageDto(page);
